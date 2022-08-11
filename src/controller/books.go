@@ -114,7 +114,6 @@ func CheckoutBook(w http.ResponseWriter, r *http.Request) {
 
 func ReturnBook(w http.ResponseWriter, r *http.Request) {
 	parameters := mux.Vars(r)
-
 	bookID, erro := strconv.ParseUint(parameters["bookID"], 10, 64)
 	if erro != nil {
 		responses.Err(w, http.StatusBadRequest, erro)
