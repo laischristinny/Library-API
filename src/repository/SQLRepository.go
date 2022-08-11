@@ -92,7 +92,7 @@ func (repository Books) GetAllBooks () ([]model.Book, error) {
 }
 
 func (repository Books) CheckoutBook(ID uint64) (model.Book, error){
-
+	
 	lines2, err := repository.db.Query(
 		"update books set quantity = quantity-1",
 	)
