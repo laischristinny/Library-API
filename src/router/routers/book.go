@@ -19,13 +19,13 @@ var BooksRouters = []Router{
 	
 	},
 	{
-		URI:                "/book",
+		URI:                "/books",
 		Method:             http.MethodGet,
 		Function:             controller.GetAllBooks,
 	
 	},
 	{
-		URI:                "/book/checkout/{bookID}",
+		URI:                "/books/checkout/{bookID}",
 		Method:             http.MethodPatch,
 		Function:             controller.CheckoutBook,
 		
