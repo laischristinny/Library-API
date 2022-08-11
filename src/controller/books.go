@@ -85,3 +85,55 @@ func SearchBook(w http.ResponseWriter, r *http.Request) {
 	}
 	responses.JSON(w, http.StatusOK, book)
 }
+
+func CheckoutBook(w http.ResponseWriter, r *http.Request) {
+	parameters := mux.Vars(r)
+
+	bookID, erro := strconv.ParseUint(parameters["bookID"], 10, 64)
+	if erro != nil {
+		responses.Err(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	db, err := database.Connect()
+	if erro != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+	defer db.Close()
+
+	repository := repository.NewRepositoryBooks(db)
+	book, err := repository.CheckoutBook(bookID)
+	if err != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	responses.JSON(w, http.StatusOK, book)
+}
+
+func ReturnBook(w http.ResponseWriter, r *http.Request) {
+	parameters := mux.Vars(r)
+
+	bookID, erro := strconv.ParseUint(parameters["bookID"], 10, 64)
+	if erro != nil {
+		responses.Err(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	db, err := database.Connect()
+	if erro != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+	defer db.Close()
+
+	repository := repository.NewRepositoryBooks(db)
+	book, err := repository.ReturnBook(bookID)
+	if err != nil {
+		responses.Err(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	responses.JSON(w, http.StatusOK, book)
+}
